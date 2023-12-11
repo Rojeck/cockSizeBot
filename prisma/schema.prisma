@@ -9,3 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  userTgId  String   @unique
+  userName  String
+  userTag   String?
+  sizes     Size[]
+  chats     Chat[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  chatTgId  String   @unique
+  chatName  String?
+  users     User[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  Size      Size[]
+}
+
+model Size {
+  id        Int      @id @default(autoincrement())
+  sizeValue Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  chatId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
