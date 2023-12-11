@@ -6,6 +6,7 @@ import { TelegramService } from './telegram.service';
 import { PrismaService } from '../../services/prisma.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoggerService } from '../../services/logger.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [TelegrafModule.forRootAsync(options())],
@@ -15,6 +16,7 @@ import { LoggerService } from '../../services/logger.service';
     PrismaService,
     NotificationService,
     LoggerService,
+    ConfigService,
   ],
 })
 export class TelegramModule {}
